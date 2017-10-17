@@ -24,13 +24,15 @@ io.on('connection', (socket) => {//подписуемся на событие п
         log('User disconnect');
     });
     
-    socket.emit('newMessage', { //server > client
-        from: 'Server',
-        text: 'this is msg from server to client',
-        createdAt: new Date().toLocaleTimeString()
-    });
 
-    socket.on('createMessage', (msg) => {log(msg);}); //server from client
+    socket.on('createMessage', (msg) => { //server take msg from client
+        log(msg);
+        io.emit('newMessage', { //and turn data to client
+            from: msg.from,
+            text: msg.text,
+            createdAt: new Date().toLocaleTimeString()
+        });
+    }); 
 });
 
 server.listen(port, () => {log(`Server start on port: ${port}`);});

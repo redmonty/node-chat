@@ -13,7 +13,7 @@ socket.on('disconnect', function() {
     console.log('Diskonnected from server');
 });
 
-socket.on('newMessage', function(date) { //client from server
+socket.on('newMessage', function(date) { //client take from server
     console.log('newMessage', date);
 });
 
