@@ -32,6 +32,21 @@ io.on('connection', (socket) => {//подписуемся на событие п
             text: msg.text,
             createdAt: new Date().toLocaleTimeString()
         });
+        // socket.broadcast.emit('newMessage', {
+        //     from: msg.from,
+        //         text: msg.text,
+        //         createdAt: new Date().toLocaleTimeString()
+        // });
+        socket.emit('newMessage', {
+            from: 'Admin',
+            text: 'Welcome to the chat app',
+            createdAt: new Date().toLocaleTimeString()
+        });
+        socket.broadcast.emit('newMessage', {
+            from: 'Admin',
+            text: 'new user joined',
+            createdAt: new Date().toLocaleTimeString()
+        })
     }); 
 });
 
