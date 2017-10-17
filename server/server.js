@@ -1,12 +1,15 @@
 const log = a => console.log(a);
 const path = require('path'),
+    http = require('http'),
     express = require('express'),
-    app = express(),
+    socketIO = require('socket.io');
+
+const app = express(),
     publicPath = path.join(__dirname, '../public'),
     port = process.env.PORT || 3000;
 
-log(__dirname + '/../public');///Users/Redmonty/Desktop/Новая папка/node-chat-app/server/../public
-log(publicPath);///Users/Redmonty/Desktop/Новая папка/node-chat-app/public
+const server = http.createServer(app);//for socket
+const io = socketIO(server);
 
 app.use(express.static(publicPath));//config express static midlewere
 
@@ -15,4 +18,11 @@ app.get('/', (req,res) => {
 });
 
 
-app.listen(port, () => {log(`Server start on port: ${port}`);});
+io.on('connection', (socket) => {//подписуемся на событие подключения когото
+    log('New user connected');//сообщение серверу
+    socket.on('disconnect', (socket) => {
+        log('User disconnect');
+    });
+});
+
+server.listen(port, () => {log(`Server start on port: ${port}`);});
