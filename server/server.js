@@ -23,6 +23,14 @@ io.on('connection', (socket) => {//подписуемся на событие п
     socket.on('disconnect', (socket) => {
         log('User disconnect');
     });
+    
+    socket.emit('newMessage', { //server > client
+        from: 'Server',
+        text: 'this is msg from server to client',
+        createdAt: new Date().toLocaleTimeString()
+    });
+
+    socket.on('createMessage', (msg) => {log(msg);}); //server from client
 });
 
 server.listen(port, () => {log(`Server start on port: ${port}`);});
