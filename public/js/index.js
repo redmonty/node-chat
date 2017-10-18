@@ -18,5 +18,6 @@ socket.emit('createMessage', { //client > server
 }, function(dataCallback) {
     console.log('Got it', dataCallback);
 });
-var p = $('p');
+var p = $('.p');
+console.log('jquery', $);
 console.log(p);
