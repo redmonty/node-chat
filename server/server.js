@@ -2,7 +2,8 @@ const log = a => console.log(a);
 const path = require('path'),
     http = require('http'),
     express = require('express'),
-    socketIO = require('socket.io');
+    socketIO = require('socket.io'),
+    {generateMessage} = require('./utils/message');
 
 const app = express(),
     publicPath = path.join(__dirname, '../public'),
@@ -27,26 +28,14 @@ io.on('connection', (socket) => {//подписуемся на событие п
 
     socket.on('createMessage', (msg) => { //server take msg from client
         log(msg);
-        io.emit('newMessage', { //and turn data to client
-            from: msg.from,
-            text: msg.text,
-            createdAt: new Date().toLocaleTimeString()
-        });
+        io.emit('newMessage', generateMessage(msg.from,msg.text));
         // socket.broadcast.emit('newMessage', {
         //     from: msg.from,
         //         text: msg.text,
         //         createdAt: new Date().toLocaleTimeString()
         // });
-        socket.emit('newMessage', {
-            from: 'Admin',
-            text: 'Welcome to the chat app',
-            createdAt: new Date().toLocaleTimeString()
-        });
-        socket.broadcast.emit('newMessage', {
-            from: 'Admin',
-            text: 'new user joined',
-            createdAt: new Date().toLocaleTimeString()
-        })
+        socket.emit('newMessage', generateMessage('Admin', 'Welcome to chat'));
+        socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined'));
     }); 
 });
 
