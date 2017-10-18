@@ -25,17 +25,18 @@ io.on('connection', (socket) => {//подписуемся на событие п
         log('User disconnect');
     });
     
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to chat'));
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined'));
 
-    socket.on('createMessage', (msg) => { //server take msg from client
+    socket.on('createMessage', (msg, callback) => { //server take msg from client
         log(msg);
         io.emit('newMessage', generateMessage(msg.from,msg.text));
+        callback('This is from the server');
         // socket.broadcast.emit('newMessage', {
         //     from: msg.from,
         //         text: msg.text,
         //         createdAt: new Date().toLocaleTimeString()
         // });
-        socket.emit('newMessage', generateMessage('Admin', 'Welcome to chat'));
-        socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined'));
     }); 
 });
 
