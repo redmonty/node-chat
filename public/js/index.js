@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
+import moment from 'moment';
 
 var socket = io();//init request from server to client
 socket.on('connect', function() {
@@ -11,10 +12,12 @@ socket.on('disconnect', function() {
 });
 
 socket.on('newMessage', function(date) { //client take from server
-    console.log('newMessage', date);
     var li = $('<li></li>');
+    var formatedTime = moment(date.createdAt).format('LT');
+    console.log('newMessage', date);
     if(date.text.toLowerCase() === 'fack you') date.text = 'i love you';
-    li.text(`${date.from}: ${date.text}`);
+    if(date.text.length === 0) return false;
+    li.text(`${date.from} ${formatedTime}: ${date.text}`);
     $('#messages').append(li);
 });
 // socket.emit('createMessage', { //client > server
@@ -54,10 +57,15 @@ locationButton.on('click', function() {
     });
 });
 socket.on('newLocationMessage', (data) => {
-    var li = $('<li></li>');
-    var a = $('<a target="_blank">My current loction</a>');
-    li.text(`${data.from}: `)
+    var li = $('<li></li>'),
+        a = $('<a target="_blank">My current location</a>'),
+        formatedTime = moment(data.createdAt).format('LT');
+    li.text(`${data.from} ${formatedTime}: `)
     a.attr('href', data.url);
     li.append(a);
     $('#messages').append(li);
 });
+
+var date = new moment();
+console.log(date.format('LT'));
+console.log(date.format());
