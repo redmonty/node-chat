@@ -31,7 +31,7 @@ io.on('connection', (socket) => {//подписуемся на событие п
     socket.on('createMessage', (msg, callback) => { //server take msg from client
         log(msg);
         io.emit('newMessage', generateMessage(msg.from,msg.text));
-        callback('This is from the server');
+        callback();
         // socket.broadcast.emit('newMessage', {
         //     from: msg.from,
         //         text: msg.text,

@@ -7,16 +7,21 @@
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <p class="p">Welcome to the public chat</p>
-    <ol id="messages">
-
-    </ol>
-    <form id="message-form">
-        <input type="test" name="message" placeholder="Message">
-        <button>Send</button>
-    </form>
-    <button id="send-location">Send location</button>
+<body class="chat">
+    <div class="chat__sidebar">
+        <h3>People</h3>
+        <div id="users"></div>
+    </div>
+    <div class="chat__main">
+        <ol id="messages" class="chat__messages"></ol>
+        <div class="chat__footer">
+            <form id="message-form">
+                <input type="test" name="message" placeholder="Message" autofocus autocomplete="off">
+                <button>Send</button>
+            </form>
+            <button id="send-location">Send location</button>
+        </div>
+    </div>
     <!-- <script src="/socket.io/socket.io.js"></script> -->
     <script src="/js/app.js"></script>
 </body>

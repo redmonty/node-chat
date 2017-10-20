@@ -3,3 +3,146 @@
 @import "base/_variables";
 @import "base/_global";
 
+
+.centered-form {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  background: -moz-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(49,84,129,1)), color-stop(100%, rgba(39,107,130,1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* opera 11.10+ */
+  background: -ms-linear-gradient(125deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* ie10+ */
+  background: linear-gradient(325deg, rgba(39,107,130,1) 0%, rgba(49,84,129,1) 100%); /* w3c */
+}
+
+.centered-form__form {
+  background: rgba(250, 250, 250, 0.9);
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
+  padding: 0px 20px;
+  margin: 20px;
+  width: 230px;
+}
+
+.form-field {
+  margin: 20px 0;
+}
+
+.form-field > * {
+  width: 100%;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.form-field input, .form-field select {
+  border: 1px solid #e1e1e1;
+  padding: 10px;
+}
+
+.chat {
+  display: flex;
+    &__sidebar {
+        overflow-y: scroll;
+        width: 260px;
+        height: 100vh;
+        background: #a73737;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #7a2828, #a73737);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #7a2828, #a73737); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        h3 {
+            color: #e6eaee;
+            margin: 10px 20px;
+            text-align: left;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {
+            background: #e6eaee;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+        }
+    }
+    &__main {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100%;
+        color: #fff8ff;
+        background: #232526;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+
+    }
+    &__messages {
+        flex-grow: 1;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        list-style-type: none;
+        padding: 10px;
+    }
+    &__footer {
+        background: #e6eaee;
+        display: flex;
+        padding: 10px;
+        /*height: 60px;*/
+        flex-shrink: 0;
+        form {
+            flex-grow: 1;
+            display: flex;
+            button {
+                margin: 0 5px;
+            }
+        }
+        input {
+            border: none;
+            padding: 10px;
+            flex-grow: 1;
+        }
+    }
+}
+.message {
+  padding: 10px;
+    &__title {
+        display: flex;
+        margin-bottom: 5px;
+        h4 {
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        span {
+            color: #999;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+  * {
+    font-size: 1rem;
+  }
+
+  .chat__sidebar {
+    display: none;
+  }
+
+  .chat__footer {
+    flex-direction: column;
+  }
+
+  .chat__footer form {
+    margin-bottom: 10px;
+  }
+
+  .chat__footer button {
+    margin-right: 0px;
+  }
+}

@@ -3372,7 +3372,6 @@ socket.on('newMessage', function (date) {
     if (date.text.toLowerCase() === 'fack you') date.text = 'i love you';
     li.text(date.from + ': ' + date.text);
     (0, _jquery2.default)('#messages').append(li);
-    (0, _jquery2.default)('[name=message]').val('');
 });
 // socket.emit('createMessage', { //client > server
 //     from: 'client',
@@ -3383,24 +3382,30 @@ socket.on('newMessage', function (date) {
 
 (0, _jquery2.default)('#message-form').on('submit', function (e) {
     e.preventDefault();
+    var msgInput = (0, _jquery2.default)('[name=message]');
     socket.emit('createMessage', {
         from: 'User',
-        text: (0, _jquery2.default)('[name=message]').val()
-    }, function () {});
+        text: msgInput.val()
+    }, function () {
+        msgInput.val('');
+    });
 });
 var locationButton = (0, _jquery2.default)('#send-location');
 locationButton.on('click', function () {
     if (!navigator.geolocation) {
         return alert('Geolocation not supported in your browser');
     }
+    locationButton.attr('disabled', 'disabled').text('Sending...');
     navigator.geolocation.getCurrentPosition(function (position) {
         //take position
+        locationButton.removeAttr('disabled').text('Send location');
         // console.log(position);
         socket.emit('createLocationMessage', { //give it to server
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         });
     }, function (err) {
+        locationButton.removeAttr('disabled').text('Send location');
         alert('Unable to fetch location');
     });
 });
